@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # This tells Netlify to completely skip the Next.js plugin
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+# This ensures routing works correctly for React SPAs if you ever add React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
