@@ -1,0 +1,77 @@
+export const DEPARTMENTS = [
+  {
+    id: "science",
+    label: "العلوم",
+    color: "#2d8f4e",
+    teachers: [
+      { name: "أستاذة مسعدي", img: "/teachers/f1.jpg" },
+      { name: "أستاذة بن زيرار", img: "/teachers/f2.jpg" },
+      { name: "أستاذ رقيق", img: "/teachers/m2.jpg" },
+      { name: "أستاذ بن سهيلة", img: "/teachers/m3.jpg" },
+      { name: "أستاذ دادوش", img: "/teachers/m4.jpg" },
+    ],
+  },
+  {
+    id: "physics",
+    label: "الفيزياء",
+    color: "#2d6a9f",
+    teachers: [
+      { name: "أستاذ كروجة", img: "/teachers/m1.jpg" },
+      { name: "أستاذ الخضاري", img: "/teachers/m2.jpg" },
+      { name: "أستاذ عامر", img: "/teachers/m3.jpg" },
+      { name: "أستاذ قنوني", img: "/teachers/m4.jpg" },
+      { name: "أستاذ بوجلال", img: "/teachers/m1.jpg" },
+      { name: "أستاذ يجو", img: "/teachers/m3.jpg" },
+    ],
+  },
+  {
+    id: "math",
+    label: "الرياضيات",
+    color: "#c97b2a",
+    teachers: [{ name: "الأستاذ وليد", img: "/teachers/m4.jpg" }],
+  },
+  {
+    id: "engineering",
+    label: "الهندسة",
+    color: "#2a8f8f",
+    teachers: [
+      { name: "أستاذ كريم", sub: "مدنية", img: "/teachers/m2.jpg" },
+      { name: "أستاذ يحياوي", sub: "مدنية", img: "/teachers/m1.jpg" },
+      { name: "أستاذ شعبان", sub: "كهربائية", img: "/teachers/m3.jpg" },
+      { name: "أستاذ الخضاري", sub: "كهربائية", img: "/teachers/m4.jpg" },
+      { name: "أستاذ بوخديمي", sub: "ميكانيكية", img: "/teachers/m1.jpg" },
+      { name: "أستاذ قديد", sub: "الطرائق", img: "/teachers/m2.jpg" },
+      { name: "أستاذ بودالي", sub: "الطرائق", img: "/teachers/m3.jpg" },
+      { name: "أستاذ مزيان", sub: "الطرائق", img: "/teachers/m4.jpg" },
+    ],
+  },
+  {
+    id: "arabic",
+    label: "الأدب العربي",
+    color: "#7b4da0",
+    teachers: [
+      { name: "أستاذة بوجنان", img: "/teachers/f1.jpg" },
+      { name: "أستاذ دحماني", img: "/teachers/m1.jpg" },
+      { name: "أستاذ رحماني", img: "/teachers/m3.jpg" },
+      { name: "أستاذ عالم", img: "/teachers/m2.jpg" },
+    ],
+  },
+  {
+    id: "philosophy",
+    label: "الفلسفة",
+    color: "#8e6bb0",
+    teachers: [{ name: "أستاذ ياسين", img: "/teachers/m4.jpg" }],
+  },
+  {
+    id: "languages",
+    label: "اللغات",
+    color: "#c0392b",
+    teachers: [
+      { name: "أستاذ بلجيلالي", sub: "فرنسية", img: "/teachers/m1.jpg" },
+      { name: "أستاذ خلادي", sub: "فرنسية", img: "/teachers/m4.jpg" },
+      { name: "أستاذة بن فريحة", sub: "فرنسية", img: "/teachers/f2.jpg" },
+      { name: "أستاذ حساين", sub: "إنجليزية", img: "/teachers/m2.jpg" },
+      { name: "أستاذ لكحل", sub: "ألمانية", img: "/teachers/m3.jpg" },
+    ],
+  },
+];
