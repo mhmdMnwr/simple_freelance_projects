@@ -23,31 +23,27 @@ export default function GlassesModel() {
     isDragging.current = true
     previousX.current = e.clientX
     document.body.style.cursor = 'grabbing'
+    e.target.setPointerCapture(e.pointerId)
     e.stopPropagation()
   }
 
-  useEffect(() => {
-    const handlePointerMove = (e) => {
-      if (isDragging.current && glassesRef.current) {
-        const deltaX = e.clientX - previousX.current
-        glassesRef.current.rotation.y += deltaX * 0.01
-        previousX.current = e.clientX
-      }
+  const handlePointerMove = (e) => {
+    if (isDragging.current && glassesRef.current) {
+      const deltaX = e.clientX - previousX.current
+      glassesRef.current.rotation.y += deltaX * 0.01
+      previousX.current = e.clientX
     }
-    const handlePointerUp = () => {
-      if (isDragging.current) {
-        isDragging.current = false
-        document.body.style.cursor = 'grab'
-      }
-    }
+  }
 
-    window.addEventListener('pointermove', handlePointerMove)
-    window.addEventListener('pointerup', handlePointerUp)
-    return () => {
-      window.removeEventListener('pointermove', handlePointerMove)
-      window.removeEventListener('pointerup', handlePointerUp)
+  const handlePointerUp = (e) => {
+    if (isDragging.current) {
+      isDragging.current = false
+      document.body.style.cursor = 'grab'
+      if (e.target.hasPointerCapture(e.pointerId)) {
+        e.target.releasePointerCapture(e.pointerId)
+      }
     }
-  }, [])
+  }
 
   return (
     <group position={[0, 0, 0]}>
@@ -57,6 +53,9 @@ export default function GlassesModel() {
         <mesh 
           position={[0, 0.4, 0]} 
           onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
           onPointerOver={() => { if (!isDragging.current) document.body.style.cursor = 'grab' }}
           onPointerOut={() => { if (!isDragging.current) document.body.style.cursor = 'auto' }}
         >

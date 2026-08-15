@@ -1374,3 +1374,135 @@ body {
 
   .section-title { font-size: 1.6rem; }
 }
+
+/* =================================================================
+   COMING SOON OVERLAY WIDGET
+   ================================================================= */
+.coming-soon-wrapper {
+  position: relative;
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 25, 47, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: default;
+}
+
+.coming-soon-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 44px 64px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: comingSoonPulse 3.5s ease-in-out infinite;
+}
+
+.coming-soon-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(181, 40, 45, 0.25);
+  border: 2px solid rgba(181, 40, 45, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+}
+
+.coming-soon-text {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.coming-soon-sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+@keyframes comingSoonPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 16px 56px rgba(181, 40, 45, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Light variant (for sections with light backgrounds like timetable) */
+.coming-soon-overlay--light {
+  background: rgba(245, 246, 248, 0.82);
+}
+
+.coming-soon-overlay--light .coming-soon-badge {
+  background: rgba(10, 25, 47, 0.08);
+  border-color: rgba(10, 25, 47, 0.18);
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.coming-soon-overlay--light .coming-soon-icon {
+  background: rgba(181, 40, 45, 0.12);
+  border-color: rgba(181, 40, 45, 0.35);
+}
+
+.coming-soon-overlay--light .coming-soon-text {
+  color: var(--navy);
+  text-shadow: none;
+}
+
+.coming-soon-overlay--light .coming-soon-sub {
+  color: var(--gray-600);
+}
+
+.coming-soon-overlay--light .coming-soon-badge {
+  animation: comingSoonPulseLight 3.5s ease-in-out infinite;
+}
+
+@keyframes comingSoonPulseLight {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 16px 56px rgba(181, 40, 45, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+}
+
+@media (max-width: 600px) {
+  .coming-soon-badge {
+    padding: 32px 40px;
+  }
+  .coming-soon-text {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+  }
+  .coming-soon-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+  }
+}

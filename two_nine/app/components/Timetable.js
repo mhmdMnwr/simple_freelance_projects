@@ -13,16 +13,7 @@ export default function Timetable() {
   const activeData = TIMETABLE[activeTab];
 
   return (
-    <section className="timetable-section coming-soon-wrapper" id="timetable">
-      {/* Coming Soon Overlay */}
-      <div className="coming-soon-overlay coming-soon-overlay--light">
-        <div className="coming-soon-badge">
-          <div className="coming-soon-icon">📅</div>
-          <span className="coming-soon-text">قريبًا</span>
-          <span className="coming-soon-sub">سيتم نشر البرنامج الأسبوعي قريبًا</span>
-        </div>
-      </div>
-
+    <section className="timetable-section" id="timetable">
       <div className="ts-header fade-up">
         <p className="section-label section-label--center">برنامج الدروس</p>
         <h2 className="section-title section-title--center">التوقيت الأسبوعي للأفواج</h2>

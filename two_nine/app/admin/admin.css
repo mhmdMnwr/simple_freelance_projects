@@ -1,0 +1,190 @@
+/* Simple Admin Grid Styles */
+
+.admin-simple-container {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  color: var(--navy);
+  background: var(--off-white);
+  min-height: 100vh;
+}
+
+.admin-header-simple {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.admin-header-simple h1 {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.admin-header-simple p {
+  color: var(--text-body);
+  font-size: 1.1rem;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.student-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.student-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-100);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.sc-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.sc-level {
+  background: rgba(212, 175, 55, 0.15);
+  color: #b08d2b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.sc-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.sc-label {
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.sc-val {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.sc-subjects {
+  background: var(--off-white);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-100);
+}
+
+.sc-subjects .sc-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.sc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sc-tag {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.admin-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.admin-search-input {
+  flex: 1;
+  min-width: 250px;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background-color: var(--white);
+  color: var(--navy);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-search-input:focus {
+  outline: none;
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.admin-filter-select {
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background-color: var(--white);
+  color: var(--navy);
+  min-width: 150px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230f172a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 16px center; /* RTL dropdown arrow */
+  background-size: 16px;
+  padding-left: 40px;
+}
+
+.admin-filter-select:focus {
+  outline: none;
+  border-color: var(--yellow);
+}
+
+.admin-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--white);
+  border: 1px dashed var(--gray-400);
+  border-radius: 16px;
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  font-weight: 500;
+}

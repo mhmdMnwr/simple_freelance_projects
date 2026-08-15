@@ -32,7 +32,7 @@ export default function CanvasContainer() {
       camera={{ position: [0, 2, 6], fov: 35 }}
       performance={{ min: 0.5 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      style={{ background: 'transparent' }}
+      style={{ background: 'transparent', touchAction: 'pan-y' }}
     >
       <Suspense fallback={<Loader />}>
         <StudioEnvironment />
