@@ -1,116 +1,244 @@
 "use client";
 
 import { useState } from "react";
-import { TIMETABLE } from "../data/timetable";
+import { TIMETABLE, TIME_SLOTS, DAYS } from "../data/timetable";
 
-// Days from Saturday to Friday
-const DAYS = ["السبت", "الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة"];
-// Hours from 07:00 to 19:00 (we need 12 blocks, so 7 to 18)
-const HOURS = Array.from({ length: 12 }, (_, i) => i + 7); 
+// Merge consecutive slots with the same teacher+class into spans (max 2 per session)
+const MAX_SESSION_SPAN = 2;
+
+function getMergedCells(schedule, day, slots) {
+  const merged = [];
+  let i = 0;
+  while (i < slots.length) {
+    const cell = schedule[day]?.[slots[i]];
+    if (!cell) {
+      merged.push({ span: 1, data: null });
+      i++;
+    } else {
+      // Look ahead for consecutive same teacher+class, capped at MAX_SESSION_SPAN
+      let span = 1;
+      while (
+        span < MAX_SESSION_SPAN &&
+        i + span < slots.length &&
+        schedule[day]?.[slots[i + span]]?.teacher === cell.teacher &&
+        schedule[day]?.[slots[i + span]]?.class === cell.class
+      ) {
+        span++;
+      }
+      const startTime = slots[i].split(" - ")[0];
+      const endTime = slots[i + span - 1].split(" - ")[1];
+      merged.push({
+        span,
+        data: cell,
+        timeLabel: `${endTime} - ${startTime}`,
+      });
+      i += span;
+    }
+  }
+  return merged;
+}
+
+// Merge consecutive sessions for mobile view too (max 2 per session)
+function getMergedSessions(schedule, day, slots) {
+  const merged = [];
+  let i = 0;
+  while (i < slots.length) {
+    const cell = schedule[day]?.[slots[i]];
+    if (!cell) {
+      i++;
+      continue;
+    }
+    let span = 1;
+    while (
+      span < MAX_SESSION_SPAN &&
+      i + span < slots.length &&
+      schedule[day]?.[slots[i + span]]?.teacher === cell.teacher &&
+      schedule[day]?.[slots[i + span]]?.class === cell.class
+    ) {
+      span++;
+    }
+    const startTime = slots[i].split(" - ")[0];
+    const endTime = slots[i + span - 1].split(" - ")[1];
+    merged.push({
+      data: cell,
+      timeLabel: `${endTime} - ${startTime}`,
+    });
+    i += span;
+  }
+  return merged;
+}
 
 export default function Timetable() {
-  const [activeTab, setActiveTab] = useState(0);
-  const activeData = TIMETABLE[activeTab];
+  const [activeLevel, setActiveLevel] = useState(0);
+  const [activeSubject, setActiveSubject] = useState(0);
+  const levelData = TIMETABLE[activeLevel];
+
+  const allSlots = [...TIME_SLOTS.morning, ...TIME_SLOTS.evening];
+  const currentSubject = levelData.comingSoon
+    ? null
+    : levelData.subjects[activeSubject];
 
   return (
     <section className="timetable-section" id="timetable">
       <div className="ts-header fade-up">
         <p className="section-label section-label--center">برنامج الدروس</p>
-        <h2 className="section-title section-title--center">التوقيت الأسبوعي للأفواج</h2>
+        <h2 className="section-title section-title--center">
+          التوقيت الأسبوعي حسب المادة
+        </h2>
       </div>
 
+      {/* Level Tabs */}
       <div className="timetable-tabs fade-up">
         {TIMETABLE.map((item, index) => (
-          <button 
-            key={item.id} 
-            className={`tt-tab ${activeTab === index ? "active" : ""}`}
-            onClick={() => setActiveTab(index)}
+          <button
+            key={item.id}
+            className={`tt-tab ${activeLevel === index ? "active" : ""}`}
+            onClick={() => {
+              setActiveLevel(index);
+              setActiveSubject(0);
+            }}
           >
-            {item.subject}
+            {item.level}
           </button>
         ))}
       </div>
 
-      <div className="timetable-wrapper fade-up">
-        <div className="tt-calendar">
-          {/* Header Row */}
-          <div className="tt-cell tt-header-corner" style={{ gridRow: 1, gridColumn: 1 }}></div>
-          {HOURS.map((hour, i) => (
-            <div key={hour} className="tt-header-time" style={{ gridRow: 1, gridColumn: i + 2 }}>
-              {hour}:00
-            </div>
-          ))}
+      {/* Tab Content */}
+      {levelData.comingSoon ? (
+        <div className="tt-coming-soon">
+          <div className="tt-cs-icon">🔜</div>
+          <h3 className="tt-cs-title">قريباً</h3>
+          <p className="tt-cs-text">
+            سيتم نشر برنامج {levelData.level} قريباً. ترقبونا!
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* Subject Tabs */}
+          <div className="tt-subject-tabs">
+            {levelData.subjects.map((subj, idx) => (
+              <button
+                key={idx}
+                className={`tt-subject-tab ${activeSubject === idx ? "active" : ""}`}
+                onClick={() => setActiveSubject(idx)}
+              >
+                <span>{subj.name}</span>
+              </button>
+            ))}
+          </div>
 
-          {/* Days & Sessions Grid */}
-          {DAYS.map((day, dIdx) => (
-            <div key={day} style={{ display: "contents" }}>
-              {/* Day Name Column */}
-              <div className="tt-cell tt-day-name" style={{ gridRow: dIdx + 2, gridColumn: 1 }}>
-                {day}
+          {/* Single Full Table for the selected subject */}
+          {currentSubject && (
+            <div key={currentSubject.name} className="tt-subject-card">
+              <div className="tt-subject-header">
+                <span className="tt-subject-icon">{currentSubject.icon}</span>
+                <h3 className="tt-subject-title">{currentSubject.name}</h3>
               </div>
-              
-              {/* Empty background slots for the grid lines */}
-              {HOURS.map((hour, i) => (
-                <div 
-                  key={hour} 
-                  className="tt-cell tt-empty-slot" 
-                  style={{ gridRow: dIdx + 2, gridColumn: i + 2 }}
-                ></div>
-              ))}
-              
-              {/* Actual Sessions overlay */}
-              {activeData.sessions
-                .filter(s => s.day === day)
-                .map((session, sIdx) => {
-                  // Grid columns are 1-indexed. Col 1 is Day name. Col 2 is 07:00.
-                  const colStart = session.start - 7 + 2; 
-                  const span = session.end - session.start;
-                  
+
+              {/* Desktop Table */}
+              <div className="tt-subject-table-wrap">
+                <table className="tt-subject-table">
+                  <thead>
+                    <tr>
+                      <th className="tt-st-corner">اليوم</th>
+                      {allSlots.map((slot, idx) => {
+                        const [start, end] = slot.split(" - ");
+                        return (
+                          <th key={idx} className="tt-st-time">
+                            {end} - {start}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {DAYS.map((day, dIdx) => {
+                      const merged = getMergedCells(
+                        currentSubject.schedule,
+                        day,
+                        allSlots
+                      );
+                      return (
+                        <tr key={dIdx} className="tt-st-row">
+                          <td className="tt-st-day">{day}</td>
+                          {merged.map((cell, cIdx) =>
+                            cell.data ? (
+                              <td
+                                key={cIdx}
+                                className="tt-st-cell tt-st-filled"
+                                colSpan={cell.span}
+                              >
+                                <div className="tt-st-cell-content">
+                                  <span className="tt-st-class">
+                                    {cell.data.class}
+                                  </span>
+                                  <span className="tt-st-teacher">
+                                    أستاذ {cell.data.teacher}
+                                  </span>
+                                </div>
+                              </td>
+                            ) : (
+                              <td key={cIdx} className="tt-st-cell">
+                                <span className="tt-st-empty">—</span>
+                              </td>
+                            )
+                          )}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile View */}
+              <div className="tt-subject-mobile">
+                {DAYS.map((day, dIdx) => {
+                  const sessions = getMergedSessions(
+                    currentSubject.schedule,
+                    day,
+                    allSlots
+                  );
+
+                  if (sessions.length === 0) return null;
+
                   return (
-                    <div 
-                      key={sIdx} 
-                      className="tt-session"
-                      style={{ 
-                        gridColumn: `${colStart} / span ${span}`,
-                        gridRow: dIdx + 2 
-                      }}
-                    >
-                      <span className="tt-s-group">{session.group}</span>
-                      <span className="tt-s-teacher">{session.teacher}</span>
+                    <div key={dIdx} className="tt-sm-day-group">
+                      <div className="tt-sm-day-label">{day}</div>
+                      {sessions.map((session, sIdx) => (
+                        <div key={sIdx} className="tt-sm-session">
+                          <div className="tt-sm-time">
+                            {session.timeLabel}
+                          </div>
+                          <div className="tt-sm-info">
+                            <span className="tt-sm-class">
+                              {session.data.class}
+                            </span>
+                            <span className="tt-sm-teacher">
+                              أستاذ {session.data.teacher}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   );
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
+                })}
 
-      {/* Mobile Stacked List View */}
-      <div className="tt-mobile-list fade-up">
-        {DAYS.map(day => {
-          const daySessions = activeData.sessions.filter(s => s.day === day);
-          if (daySessions.length === 0) return null;
-          
-          return (
-            <div key={day} className="tt-m-day">
-              <h3 className="tt-m-day-title">{day}</h3>
-              <div className="tt-m-sessions">
-                {daySessions.map((session, sIdx) => (
-                  <div key={sIdx} className="tt-m-session">
-                    <div className="tt-m-time">
-                      <span>{session.start}:00</span> - <span>{session.end}:00</span>
-                    </div>
-                    <div className="tt-m-details">
-                      <span className="tt-m-group">{session.group}</span>
-                      <span className="tt-m-teacher">{session.teacher}</span>
-                    </div>
+                {/* If no sessions at all for this subject */}
+                {DAYS.every((day) =>
+                  allSlots.every(
+                    (slot) => !currentSubject.schedule[day]?.[slot]
+                  )
+                ) && (
+                  <div className="tt-sm-empty-msg">
+                    <span>📋</span>
+                    <p>لا توجد حصص لهذه المادة حالياً</p>
                   </div>
-                ))}
+                )}
               </div>
             </div>
-          );
-        })}
-      </div>
+          )}
+        </>
+      )}
     </section>
   );
 }

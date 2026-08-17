@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-export default function Hero({ onOpenModal }) {
+const AIRTABLE_URL = "https://airtable.com/appHR3ubrvys3Kdps/shrQECOnanUVE83n6";
+
+export default function Hero() {
   return (
     <section className="hero" id="hero">
       <div className="hero-bg">
@@ -11,16 +13,21 @@ export default function Hero({ onOpenModal }) {
       <div className="hero-content">
         <div className="hero-badge">أكاديمية تعليمية رائدة</div>
         <h1 className="hero-title">
-          مستقبلك الدراسي<br />
-          يبدأ <span className="hero-highlight">من هنا</span>
+          في{" "}
+          <span className="two-nine-text" style={{ display: 'inline-block', direction: 'ltr' }}>
+            <span className="tn-two">two</span>
+            <span className="tn-nine"> nine</span>
+          </span>
+          <br />
+          نتوقع نجاح كل تلميذ
         </h1>
         <p className="hero-desc">
           في TWO NINE نرافقك بخطة تعليمية متكاملة، وأساتذة متميزين، ومتابعة مستمرة لتحقيق أفضل النتائج.
         </p>
         <div className="hero-cta-group">
-          <button className="btn-hero btn-hero-primary" onClick={onOpenModal}>
+          <a href={AIRTABLE_URL} target="_blank" rel="noopener noreferrer" className="btn-hero btn-hero-primary">
             سجل الآن
-          </button>
+          </a>
           <a href="#about" className="btn-hero btn-hero-secondary">
             اكتشف المزيد
           </a>
@@ -28,14 +35,14 @@ export default function Hero({ onOpenModal }) {
       </div>
 
       {/* Elegant Floating Promo Card */}
-      <button className="hero-promo-card" onClick={onOpenModal}>
+      <a href={AIRTABLE_URL} target="_blank" rel="noopener noreferrer" className="hero-promo-card">
         <div className="hpc-icon">🎁</div>
         <div className="hpc-content">
           <span className="hpc-title">عرض خاص للمسجلين الأوائل</span>
           <span className="hpc-offer">خصم 500 دج</span>
           <span className="hpc-subtext">لفترة محدودة فقط</span>
         </div>
-      </button>
+      </a>
     </section>
   );
 }

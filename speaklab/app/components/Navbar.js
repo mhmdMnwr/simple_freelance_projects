@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-export default function Navbar({ sticky }) {
+export default function Navbar({ sticky, onRegisterClick }) {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
@@ -47,16 +47,13 @@ export default function Navbar({ sticky }) {
           <a href="#about" className={activeSection === "about" ? "active" : ""}>من نحن</a>
         </li>
         <li>
-          <a href="#stats" className={activeSection === "stats" ? "active" : ""}>أرقامنا</a>
-        </li>
-        <li>
           <a href="#teachers" className={activeSection === "teachers" ? "active" : ""}>أساتذتنا</a>
         </li>
         <li>
           <a href="#timetable" className={activeSection === "timetable" ? "active" : ""}>البرنامج الزمني</a>
         </li>
       </ul>
-      <a href="https://www.facebook.com/profile.php?id=100083395694424" target="_blank" rel="noopener noreferrer" className="btn-nav-register">تواصل معنا</a>
+      <button className="btn-nav-register" onClick={onRegisterClick}>سجّل الآن</button>
     </nav>
   );
 }

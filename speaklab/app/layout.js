@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "مدرسة speakLab | Victory School",
+  title: "مدرسة speakLab",
   description:
     "مدرسة speakLab - تعليم متميز يبني أجيال المستقبل. سجّل أبناءك الآن",
   icons: {

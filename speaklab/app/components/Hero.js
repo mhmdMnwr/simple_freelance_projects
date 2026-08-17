@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 
-export default function Hero() {
+export default function Hero({ onRegisterClick }) {
   return (
     <section className="hero" id="hero">
       <div className="hero-bg">
-        <Image src="/hero-bg.jpg" alt="مدرسة speakLab" fill className="hero-bg-img" priority sizes="100vw" />
+        <Image src="/hero-bg.jpg" alt="مدرسة speakLab" fill className="hero-bg-img" priority sizes="100vw" unoptimized={true} />
       </div>
       <div className="hero-overlay"></div>
       <div className="hero-accent"></div>
@@ -22,10 +24,10 @@ export default function Hero() {
           اختر لأبنائك بيئة تعليمية تلهم وتبني المستقبل.
         </p>
         <div className="hero-cta">
-          <a href="https://www.facebook.com/profile.php?id=100083395694424" target="_blank" rel="noopener noreferrer" className="btn-hero">
+          <button className="btn-hero" onClick={onRegisterClick}>
             <span>سجّل أبناءك الآن</span>
             <span className="btn-icon">←</span>
-          </a>
+          </button>
         </div>
       </div>
       <div className="scroll-indicator">

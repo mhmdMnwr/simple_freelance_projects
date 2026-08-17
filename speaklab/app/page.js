@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -8,8 +8,14 @@ import About from "./components/About";
 import TeachersCarousel from "./components/TeachersCarousel";
 import Timetable from "./components/Timetable";
 import Footer from "./components/Footer";
+import RegisterModal from "./components/RegisterModal";
 
 export default function Home() {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  const openRegister = useCallback(() => setIsRegisterOpen(true), []);
+  const closeRegister = useCallback(() => setIsRegisterOpen(false), []);
+
   // Fade-in observer
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,24 +31,18 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
-      <Hero />
+      <Navbar onRegisterClick={openRegister} />
+      <Hero onRegisterClick={openRegister} />
       <Features />
       <About />
-      {/* Stats banner */}
-      {/* <section className="stats-banner" id="stats">
-        <div className="stats-inner fade-up">
-          <div className="stat-item"><div className="stat-number">+<span>500</span></div><div className="stat-label">طالب وطالبة</div></div>
-          <div className="stat-item"><div className="stat-number">+<span>30</span></div><div className="stat-label">معلم ومعلمة</div></div>
-          <div className="stat-item"><div className="stat-number">+<span>5</span></div><div className="stat-label">سنة خبرة</div></div>
-          <div className="stat-item"><div className="stat-number"><span>90</span>%</div><div className="stat-label">نسبة النجاح</div></div>
-        </div>
-      </section> */}
 
       <TeachersCarousel />
       <Timetable />
 
       <Footer />
+
+      {/* Registration Modal */}
+      <RegisterModal isOpen={isRegisterOpen} onClose={closeRegister} />
     </>
   );
 }

@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-export default function Navbar({ onOpenModal }) {
+const AIRTABLE_URL = "https://airtable.com/appHR3ubrvys3Kdps/shrQECOnanUVE83n6";
+
+export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -76,7 +78,7 @@ export default function Navbar({ onOpenModal }) {
 
           {/* Desktop CTA & Hamburger */}
           <div className="nav-actions">
-            <button className="btn-nav-register desktop-only" onClick={onOpenModal}>سجل الآن</button>
+            <a href={AIRTABLE_URL} target="_blank" rel="noopener noreferrer" className="btn-nav-register desktop-only">سجل الآن</a>
             <button className="hamburger-btn mobile-only" onClick={() => setIsMobileMenuOpen(true)}>
               ☰
             </button>
@@ -105,7 +107,7 @@ export default function Navbar({ onOpenModal }) {
             <li><a href="#timetable" onClick={closeMenu}>البرامج</a></li>
           </ul>
           <div className="mobile-menu-footer">
-             <button className="btn-nav-register mobile-cta" onClick={() => { closeMenu(); onOpenModal(); }}>سجل الآن</button>
+             <a href={AIRTABLE_URL} target="_blank" rel="noopener noreferrer" className="btn-nav-register mobile-cta" onClick={closeMenu}>سجل الآن</a>
           </div>
         </div>
         <div className="mobile-menu-backdrop" onClick={closeMenu}></div>
