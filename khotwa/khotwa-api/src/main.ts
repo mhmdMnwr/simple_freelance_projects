@@ -6,16 +6,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS for frontend (local and deployed)
-  const corsOriginEnv = process.env['CORS_ORIGIN'];
-  
-  app.enableCors({
-    origin: corsOriginEnv ? corsOriginEnv.split(',') : [
-      'http://localhost:5173', 
-      'https://khotwa-school.netlify.app'
-    ],
-    credentials: true,
-  });
+  app.enableCors();
 
   // Global validation pipe
   app.useGlobalPipes(
