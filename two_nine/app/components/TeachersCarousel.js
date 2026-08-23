@@ -100,7 +100,7 @@ export default function TeachersCarousel() {
               <span className="ts-card-subject" style={{
                 background: dept.color,
               }}>
-                {teacher.sub || dept.label}
+                {teacher.level} {teacher.sub ? `- ${teacher.sub}` : ""}
               </span>
             </div>
           </div>
