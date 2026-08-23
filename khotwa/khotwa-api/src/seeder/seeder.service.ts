@@ -27,6 +27,10 @@ export class SeederService implements OnModuleInit {
   ) {}
 
   async onModuleInit(): Promise<void> {
+    if (!this.configService.get<string>('ADMIN_USER')) {
+      this.logger.log('ADMIN_USER not set, skipping all seeding.');
+      return;
+    }
     await this.seedAdmin();
     await this.seedLevelsAndClasses();
   }
