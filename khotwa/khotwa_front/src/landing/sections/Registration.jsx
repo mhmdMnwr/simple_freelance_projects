@@ -65,7 +65,7 @@ export default function Registration() {
         <div className="l-register-header fade-up">
           <span className="l-section-label">التسجيل</span>
           <h2 className="l-section-heading">سجل الآن</h2>
-          <p className="l-register-sub">سجل ابنك أو ابنتك في أكاديمية خطوة واستفد من أفضل الدروس والمتابعة المستمرة.</p>
+          <p className="l-register-sub">سجل ابنك أو ابنتك في مؤسسة خطوة التعليمية واستفد من أفضل الدروس والمتابعة المستمرة.</p>
         </div>
         <form className="l-reg-card fade-up" onSubmit={handleSubmit}>
           <div className="l-reg-row">

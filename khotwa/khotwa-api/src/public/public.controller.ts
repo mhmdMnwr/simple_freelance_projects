@@ -41,4 +41,16 @@ export class PublicController {
   getTeachers() {
     return this.publicService.getTeachers();
   }
+
+  @Get('testimonials')
+  @ApiOperation({ summary: 'Get all testimonials (public)' })
+  getTestimonials() {
+    return this.publicService.getTestimonials();
+  }
+
+  @Get('settings')
+  @ApiOperation({ summary: 'Get site settings (public)' })
+  getSettings() {
+    return this.publicService.getSettings();
+  }
 }

@@ -8,6 +8,8 @@ import { ClassSpecialty, ClassSpecialtyDocument } from '../classes/class-special
 import { Subject, SubjectDocument } from '../subjects/subject.schema';
 import { Student, StudentDocument } from '../students/student.schema';
 import { Teacher, TeacherDocument } from '../teachers/teacher.schema';
+import { Testimonial, TestimonialDocument } from '../testimonials/testimonial.schema';
+import { SiteSettings, SiteSettingsDocument } from '../site-settings/site-settings.schema';
 import { CreateStudentDto } from '../students/student.dto';
 
 @Injectable()
@@ -27,6 +29,10 @@ export class PublicService {
     private readonly studentModel: Model<StudentDocument>,
     @InjectModel(Teacher.name)
     private readonly teacherModel: Model<TeacherDocument>,
+    @InjectModel(Testimonial.name)
+    private readonly testimonialModel: Model<TestimonialDocument>,
+    @InjectModel(SiteSettings.name)
+    private readonly settingsModel: Model<SiteSettingsDocument>,
   ) {}
 
   async getAnnouncements() {
@@ -80,5 +86,17 @@ export class PublicService {
         },
       })
       .exec();
+  }
+
+  async getTestimonials() {
+    return this.testimonialModel.find().sort({ createdAt: -1 }).exec();
+  }
+
+  async getSettings() {
+    let settings = await this.settingsModel.findOne({ key: 'main' }).exec();
+    if (!settings) {
+      settings = await this.settingsModel.create({ key: 'main' });
+    }
+    return settings;
   }
 }

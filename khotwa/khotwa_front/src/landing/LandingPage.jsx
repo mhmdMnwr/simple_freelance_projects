@@ -3,6 +3,7 @@ import './landing.css'
 import Navbar from './sections/Navbar'
 import Hero from './sections/Hero'
 import About from './sections/About'
+import Testimonials from './sections/Testimonials'
 import Teachers from './sections/Teachers'
 import Timetable from './sections/Timetable'
 import Announcements from './sections/Announcements'
@@ -39,6 +40,7 @@ export default function LandingPage() {
       <Navbar />
       <Hero />
       <About />
+      <Testimonials />
       <Teachers />
       <Timetable />
       <Announcements />

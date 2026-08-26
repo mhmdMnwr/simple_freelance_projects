@@ -19,4 +19,6 @@ export const publicApi = {
   getLevels: () => request('GET', '/levels'),
   getTeachers: () => request('GET', '/teachers'),
   registerStudent: (data) => request('POST', '/register', data),
+  getTestimonials: () => request('GET', '/testimonials'),
+  getSettings: () => request('GET', '/settings'),
 };

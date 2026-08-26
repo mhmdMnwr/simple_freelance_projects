@@ -8,6 +8,8 @@ import { ClassesModule } from '../classes/classes.module';
 import { SubjectsModule } from '../subjects/subjects.module';
 import { StudentsModule } from '../students/students.module';
 import { TeachersModule } from '../teachers/teachers.module';
+import { TestimonialsModule } from '../testimonials/testimonials.module';
+import { SiteSettingsModule } from '../site-settings/site-settings.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { TeachersModule } from '../teachers/teachers.module';
     SubjectsModule,
     StudentsModule,
     TeachersModule,
+    TestimonialsModule,
+    SiteSettingsModule,
   ],
   controllers: [PublicController],
   providers: [PublicService],

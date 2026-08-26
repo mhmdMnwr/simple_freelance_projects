@@ -29,7 +29,7 @@ export default function Teachers() {
   const [teachers, setTeachers] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeSubject, setActiveSubject] = useState(null)
-  
+
   const [activeTeacher, setActiveTeacher] = useState(0)
   const [slideDir, setSlideDir] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -39,7 +39,7 @@ export default function Teachers() {
       setTeachers(data)
       const subjects = getSubjectTabs(data)
       if (subjects.length > 0) setActiveSubject(subjects[0])
-    }).catch(() => {}).finally(() => setLoading(false))
+    }).catch(() => { }).finally(() => setLoading(false))
   }, [])
 
   const getSubjectTabs = (data) => {
@@ -98,7 +98,7 @@ export default function Teachers() {
           <span className="l-section-label">أساتذتنا</span>
           <h2 className="l-section-heading">نخبة من الأساتذة ذوي خبرة واسعة</h2>
         </div>
-        
+
         {loading ? (
           <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', padding: 40 }}>جاري التحميل...</div>
         ) : teachers.length === 0 ? (
@@ -146,7 +146,7 @@ export default function Teachers() {
                       </div>
 
                       <div className="ts-card-info">
-                        <h3 className="ts-card-name">أستاذ {teacher.name}</h3>
+                        <h3 className="ts-card-name">الأساتذ {teacher.name}</h3>
                         <span className="ts-card-subject">
                           {activeSubject}
                         </span>

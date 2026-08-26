@@ -10,6 +10,8 @@ import ClassesPage from './pages/ClassesPage'
 import LevelsPage from './pages/LevelsPage'
 import SessionsPage from './pages/SessionsPage'
 import AnnouncementsPage from './pages/AnnouncementsPage'
+import SettingsPage from './pages/SettingsPage'
+import TestimonialsPage from './pages/TestimonialsPage'
 import LandingPage from './landing/LandingPage'
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
         <Route path="levels" element={<LevelsPage />} />
         <Route path="sessions" element={<SessionsPage />} />
         <Route path="announcements" element={<AnnouncementsPage />} />
+        <Route path="testimonials" element={<TestimonialsPage />} />
+        <Route path="settings" element={<SettingsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

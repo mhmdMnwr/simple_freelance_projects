@@ -11,6 +11,8 @@ import { SessionsModule } from './sessions/sessions.module';
 import { AnnouncementsModule } from './announcements/announcements.module';
 import { PublicModule } from './public/public.module';
 import { SeederModule } from './seeder/seeder.module';
+import { TestimonialsModule } from './testimonials/testimonials.module';
+import { SiteSettingsModule } from './site-settings/site-settings.module';
 
 @Module({
   imports: [
@@ -19,8 +21,8 @@ import { SeederModule } from './seeder/seeder.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const uri = configService.get<string>('MONGO_URI');
-        if (!uri) throw new Error('MONGO_URI is not defined in the environment variables');
+        const uri = configService.get<string>('MONGODB_URI');
+        if (!uri) throw new Error('MONGODB_URI is not defined in the environment variables');
         return { uri };
       },
     }),
@@ -34,6 +36,8 @@ import { SeederModule } from './seeder/seeder.module';
     AnnouncementsModule,
     PublicModule,
     SeederModule,
+    TestimonialsModule,
+    SiteSettingsModule,
   ],
 })
 export class AppModule {}

@@ -11,6 +11,7 @@ export default function Layout() {
       <button className="mobile-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
         <Menu size={22} />
       </button>
+      {sidebarOpen && <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} />}
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <main className="main-content">
         <Outlet />

@@ -38,6 +38,7 @@ export const api = {
 
   // Auth
   login: (username, password) => request('POST', '/auth/login', { username, password }),
+  changePassword: (oldPassword, newPassword) => request('PATCH', '/auth/change-password', { oldPassword, newPassword }),
 
   // Levels
   getLevels: () => request('GET', '/admin/levels'),
@@ -80,4 +81,13 @@ export const api = {
   createAnnouncement: (data) => request('POST', '/admin/announcements', data),
   updateAnnouncement: (id, data) => request('PATCH', `/admin/announcements/${id}`, data),
   deleteAnnouncement: (id) => request('DELETE', `/admin/announcements/${id}`),
+
+  // Testimonials
+  getTestimonials: () => request('GET', '/admin/testimonials'),
+  createTestimonial: (data) => request('POST', '/admin/testimonials', data),
+  deleteTestimonial: (id) => request('DELETE', `/admin/testimonials/${id}`),
+
+  // Settings
+  getSettings: () => request('GET', '/admin/settings'),
+  updateLogo: (logoUrl) => request('PATCH', '/admin/settings/logo', { logoUrl }),
 };

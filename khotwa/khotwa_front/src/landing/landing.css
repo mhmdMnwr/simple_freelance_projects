@@ -340,21 +340,111 @@
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {
+  /* ─ Navbar ─ */
   .l-nav-links, .l-nav-cta { display: none; }
   .l-hamburger { display: block; }
-  .l-hero h1 { font-size: 2rem; }
-  .l-hero-desc { font-size: 0.95rem; }
-  .l-about-grid { grid-template-columns: 1fr; gap: 30px; }
+  .l-nav { width: 96%; height: 56px; top: 10px; }
+  .l-nav-inner { padding: 0 16px; }
+  .l-nav-brand { font-size: 1.05rem; gap: 8px; }
+  .l-nav-brand img { height: 32px !important; }
+
+  /* ─ Mobile menu ─ */
+  .l-mobile-panel { width: 75vw; max-width: 300px; }
+
+  /* ─ Hero ─ */
+  .l-hero { padding: 100px 16px 60px; min-height: auto; min-height: 85vh; }
+  .l-hero h1 { font-size: 1.75rem; line-height: 1.4; }
+  .l-hero-desc { font-size: 0.9rem; margin-bottom: 28px; }
+  .l-hero-badge { font-size: 0.78rem; padding: 6px 16px; margin-bottom: 18px; }
+  .l-hero-btns { gap: 10px; }
+  .l-btn-gold, .l-btn-outline { padding: 12px 24px; font-size: 0.88rem; width: 100%; text-align: center; }
+  .l-hero-particle { display: none; }
+
+  /* ─ Sections general ─ */
+  .l-about, .l-whyus, .l-teachers, .l-timetable, .l-announcements, .l-register { padding: 60px 0; }
+  .l-section-heading { font-size: 1.5rem; }
+  .l-container { padding: 0 16px; }
+
+  /* ─ About ─ */
+  .l-about-grid { grid-template-columns: 1fr; gap: 24px; }
+  .l-about-img-wrap { aspect-ratio: 16/10; }
+  .l-about-float { padding: 10px 14px; bottom: 12px; right: 12px; }
+  .l-about-float-num { font-size: 1.3rem; }
+  .l-about-float-txt { font-size: 0.72rem; }
   .l-about-stats { flex-direction: column; }
   .l-stat-item + .l-stat-item { border-right: none; border-top: 1px solid var(--gray-200); }
-  .l-teachers-grid { grid-template-columns: 1fr; }
-  .l-ann-slide { grid-template-columns: 1fr; }
-  .l-ann-slide-img { min-height: 180px; }
-  .l-footer-grid { grid-template-columns: 1fr; }
+  .l-stat-num { font-size: 1.25rem; }
+  .l-about-text { font-size: 0.88rem; }
+
+  /* ─ Features / Why Us ─ */
+  .l-features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .l-feature-card { padding: 20px 16px; }
+  .l-fc-icon { font-size: 1.5rem; }
+  .l-fc-title { font-size: 0.92rem; }
+  .l-fc-desc { font-size: 0.78rem; }
+  .l-whyus-sub { font-size: 0.85rem; }
+
+  /* ─ Teachers Carousel ─ */
+  .ts-carousel { gap: 12px; min-height: auto; flex-wrap: nowrap; }
+  .ts-arrow { width: 36px; height: 36px; min-width: 36px; }
+  .ts-card { width: 240px; height: 340px; border-radius: 16px; }
+  .ts-card-name { font-size: 1.1rem; margin-bottom: 8px; }
+  .ts-card-subject { font-size: 0.78rem; padding: 5px 14px; }
+  .ts-card-info { padding: 20px 16px; }
+  .ts-dots { margin-top: 20px; }
+  .l-tt-tabs { gap: 6px; }
+  .l-tt-tab { padding: 8px 16px; font-size: 0.82rem; }
+
+  /* ─ Timetable ─ */
+  .l-tt-session { flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 14px; }
+  .l-tt-time { min-width: unset; width: 100%; font-size: 0.8rem; padding: 5px 10px; }
+  .l-tt-subject { font-size: 0.85rem; }
+  .l-tt-teacher { font-size: 0.78rem; }
+  .l-tt-day-label { padding: 12px 16px; font-size: 0.88rem; }
+  .l-tt-level-badge { font-size: 0.7rem; padding: 2px 8px; }
+
+  /* ─ Announcements ─ */
+  .l-ann-carousel { flex-direction: row; gap: 8px; padding-bottom: 44px; }
+  .l-ann-arrow { width: 36px; height: 36px; min-width: 36px; }
+  .l-ann-slide-img { height: 220px; }
+  .l-ann-title { font-size: 1.1rem; }
+  .l-ann-readmore { font-size: 0.85rem; padding: 8px 20px; }
+  .l-ann-slide-body { padding: 18px 16px; }
+  .l-ann-dots { bottom: 0; }
+
+  /* ─ Announcement Modal ─ */
+  .l-ann-modal { padding: 12px; }
+  .l-ann-modal-card { max-height: 90vh; border-radius: 12px; }
+  .l-ann-modal-card img { height: 180px; }
+  .l-ann-modal-body { padding: 20px 16px; }
+  .l-ann-modal-title { font-size: 1.15rem; }
+  .l-ann-modal-text { font-size: 0.88rem; }
+
+  /* ─ Registration ─ */
+  .l-reg-card { padding: 24px 18px; }
   .l-reg-row { grid-template-columns: 1fr; }
-  .l-features-grid { grid-template-columns: 1fr 1fr; }
+  .l-reg-input, .l-reg-select { padding: 10px 14px; font-size: 0.85rem; }
+  .l-reg-label { font-size: 0.78rem; }
+  .l-reg-chip { padding: 6px 12px; font-size: 0.78rem; }
+  .l-register-sub { font-size: 0.85rem; }
+
+  /* ─ Footer ─ */
+  .l-footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .l-footer-brand { font-size: 1.2rem; }
+  .l-footer-desc { font-size: 0.82rem; }
+  .l-footer-title { font-size: 0.88rem; margin-bottom: 12px; }
+  .l-footer-links a { font-size: 0.82rem; }
+  .l-footer { padding: 40px 0 0; }
+  .l-footer-bottom { font-size: 0.75rem; }
 }
-@media (max-width: 480px) {
+
+@media (max-width: 380px) {
+  /* Extra small phones */
   .l-features-grid { grid-template-columns: 1fr; }
-  .l-hero { padding: 100px 16px 60px; }
+  .l-hero h1 { font-size: 1.5rem; }
+  .ts-card { width: 200px; height: 290px; }
+  .ts-arrow { width: 32px; height: 32px; min-width: 32px; }
+  .l-ann-slide-img { height: 180px; }
+  .l-section-heading { font-size: 1.3rem; }
+  .l-stat-item { padding: 12px; }
 }

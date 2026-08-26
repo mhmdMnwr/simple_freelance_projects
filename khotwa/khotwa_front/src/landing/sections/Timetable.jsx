@@ -32,7 +32,7 @@ export default function Timetable() {
           setActiveClassId(lvlsData[0].classes[0]._id)
         }
       }
-    }).catch(() => {}).finally(() => setLoading(false))
+    }).catch(() => { }).finally(() => setLoading(false))
   }, [])
 
   const activeLevel = levels.find(l => String(l._id) === String(activeLevelId))
@@ -88,7 +88,7 @@ export default function Timetable() {
             {/* Level tabs */}
             <div className="l-tt-tabs fade-up" style={{ marginBottom: '15px' }}>
               {levels.map(lvl => (
-                <button key={lvl._id} className={`l-tt-tab ${activeLevelId === lvl._id ? 'active' : ''}`} 
+                <button key={lvl._id} className={`l-tt-tab ${activeLevelId === lvl._id ? 'active' : ''}`}
                   onClick={() => { setActiveLevelId(lvl._id); setActiveClassId(lvl.classes?.[0]?._id || null) }}>
                   {lvl.name}
                 </button>
@@ -127,7 +127,7 @@ export default function Timetable() {
                                 <div className="l-tt-subject">
                                   <span className="l-tt-level-badge">{subjectName}</span>
                                 </div>
-                                <div className="l-tt-teacher">أستاذ {s.teacherId?.name || '—'}</div>
+                                <div className="l-tt-teacher">الأساتذ {s.teacherId?.name || '—'}</div>
                               </div>
                             </div>
                           )
