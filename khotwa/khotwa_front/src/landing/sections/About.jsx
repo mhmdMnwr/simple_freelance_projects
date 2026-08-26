@@ -1,4 +1,13 @@
+import { useState, useEffect } from 'react'
+import { publicApi } from '../publicApi'
+
 export default function About() {
+  const [aboutImg, setAboutImg] = useState('/images/school.png')
+  useEffect(() => {
+    publicApi.getSettings().then(data => {
+      if (data?.aboutImgUrl) setAboutImg(data.aboutImgUrl)
+    }).catch(() => {})
+  }, [])
   const programs = [
     { icon: '📚', num: '01', title: 'دروس الدعم', desc: 'دروس دعم مدرسي في جميع المواد وجميع المستويات لضمان التفوق الدراسي.' },
     { icon: '🧒', num: '02', title: 'برامج الأطفال', desc: 'برامج متخصصة لتنمية الذكاء والتعلم المبكر عند الأطفال.' },
@@ -12,7 +21,7 @@ export default function About() {
         <div className="l-container">
           <div className="l-about-grid fade-up">
             <div className="l-about-img-wrap">
-              <img src="/images/school.png" alt="مؤسسة خطوة التعليمية" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={aboutImg} alt="مؤسسة خطوة التعليمية" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div className="l-about-float">
                 <span className="l-about-float-num">+05</span>
                 <span className="l-about-float-txt">سنوات من الوجود</span>

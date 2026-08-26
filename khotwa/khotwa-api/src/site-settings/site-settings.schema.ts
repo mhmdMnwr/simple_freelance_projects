@@ -10,6 +10,12 @@ export class SiteSettings {
 
   @Prop({ type: String })
   logoUrl?: string;
+
+  @Prop({ type: String })
+  heroBgUrl?: string;
+
+  @Prop({ type: String })
+  aboutImgUrl?: string;
 }
 
 export const SiteSettingsSchema = SchemaFactory.createForClass(SiteSettings);

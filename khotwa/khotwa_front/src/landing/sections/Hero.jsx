@@ -1,6 +1,15 @@
+import { useState, useEffect } from 'react'
+import { publicApi } from '../publicApi'
+
 export default function Hero() {
+  const [bg, setBg] = useState('/images/hero_bg.png')
+  useEffect(() => {
+    publicApi.getSettings().then(data => {
+      if (data?.heroBgUrl) setBg(data.heroBgUrl)
+    }).catch(() => {})
+  }, [])
   return (
-    <section className="l-hero" id="hero">
+    <section className="l-hero" id="hero" style={{ backgroundImage: `linear-gradient(135deg, rgba(15,10,30,0.85) 0%, rgba(15,10,30,0.9) 100%), url(${bg})` }}>
       <div className="l-hero-particle" style={{ width: 300, height: 300, top: '10%', right: '5%', background: 'rgba(212,165,55,0.08)' }} />
       <div className="l-hero-particle" style={{ width: 200, height: 200, bottom: '15%', left: '10%', background: 'rgba(124,58,237,0.08)', animationDelay: '3s' }} />
       <div className="l-hero-content">

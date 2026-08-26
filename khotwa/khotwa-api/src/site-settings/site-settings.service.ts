@@ -26,4 +26,17 @@ export class SiteSettingsService {
     ).exec();
     return settings;
   }
+
+  async updateCovers(heroBgUrl?: string, aboutImgUrl?: string) {
+    const updateData: any = {};
+    if (heroBgUrl) updateData.heroBgUrl = heroBgUrl;
+    if (aboutImgUrl) updateData.aboutImgUrl = aboutImgUrl;
+
+    const settings = await this.settingsModel.findOneAndUpdate(
+      { key: 'main' },
+      { $set: updateData },
+      { new: true, upsert: true },
+    ).exec();
+    return settings;
+  }
 }

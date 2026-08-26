@@ -344,7 +344,7 @@
   .l-nav-links, .l-nav-cta { display: none; }
   .l-hamburger { display: block; }
   .l-nav { width: 96%; height: 56px; top: 10px; }
-  .l-nav-inner { padding: 0 16px; }
+  .l-nav-inner { padding: 0 16px; flex-direction: row-reverse; }
   .l-nav-brand { font-size: 1.05rem; gap: 8px; }
   .l-nav-brand img { height: 32px !important; }
 

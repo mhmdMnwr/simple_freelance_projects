@@ -15,14 +15,27 @@ export default function SettingsPage() {
   const [savingLogo, setSavingLogo] = useState(false)
   const [msgLogo, setMsgLogo] = useState(null)
 
+  const [heroFile, setHeroFile] = useState(null)
+  const [heroPreview, setHeroPreview] = useState('')
+  const [aboutFile, setAboutFile] = useState(null)
+  const [aboutPreview, setAboutPreview] = useState('')
+  const [savingCovers, setSavingCovers] = useState(false)
+  const [msgCovers, setMsgCovers] = useState(null)
+
   useEffect(() => {
     api.getSettings()
       .then(data => {
         if (data && data.logoUrl) {
           setLogoPreview(data.logoUrl)
         } else {
-          setLogoPreview('/logo.jpg') // fallback to default local logo
+          setLogoPreview('/logo.jpg')
         }
+        
+        if (data && data.heroBgUrl) setHeroPreview(data.heroBgUrl)
+        else setHeroPreview('/images/hero_bg.png')
+        
+        if (data && data.aboutImgUrl) setAboutPreview(data.aboutImgUrl)
+        else setAboutPreview('/images/school.png')
       })
       .catch(err => console.error('Failed to load settings:', err))
   }, [])
@@ -82,6 +95,44 @@ export default function SettingsPage() {
     }
   }
 
+  const handleHeroChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setHeroFile(file)
+      setHeroPreview(URL.createObjectURL(file))
+    }
+  }
+
+  const handleAboutChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setAboutFile(file)
+      setAboutPreview(URL.createObjectURL(file))
+    }
+  }
+
+  const handleCoversSubmit = async (e) => {
+    e.preventDefault()
+    if (!heroFile && !aboutFile) return
+
+    setSavingCovers(true)
+    setMsgCovers(null)
+    try {
+      let heroBgUrl, aboutImgUrl;
+      if (heroFile) heroBgUrl = await uploadToCloudinary(heroFile)
+      if (aboutFile) aboutImgUrl = await uploadToCloudinary(aboutFile)
+      
+      await api.updateCovers({ heroBgUrl, aboutImgUrl })
+      setMsgCovers({ type: 'success', text: 'تم تحديث صور الغلاف بنجاح ✅' })
+      setHeroFile(null)
+      setAboutFile(null)
+    } catch (err) {
+      setMsgCovers({ type: 'error', text: err.message || 'فشل رفع صور الغلاف' })
+    } finally {
+      setSavingCovers(false)
+    }
+  }
+
   return (
     <div className="fade-in">
       <div className="page-header">
@@ -109,10 +160,11 @@ export default function SettingsPage() {
                 <button 
                   type="button"
                   className="btn-icon" 
-                  style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}
+                  style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#1A1333', border: '1px solid #D4A537', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
                   onClick={() => document.getElementById('logoInput').click()}
+                  title="تغيير الشعار"
                 >
-                  <Pencil size={14} />
+                  <Pencil size={16} />
                 </button>
               </div>
               <input 
@@ -137,6 +189,80 @@ export default function SettingsPage() {
 
             <button type="submit" className="btn btn-primary" disabled={savingLogo || !logoFile} style={{ width: '100%' }}>
               {savingLogo ? 'جاري الرفع...' : <><Upload size={18} /> تحديث الشعار</>}
+            </button>
+          </form>
+        </div>
+
+        {/* Covers Settings */}
+        <div className="card" style={{ padding: '2rem' }}>
+          <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ImageIcon size={18} /> صور الغلاف
+          </h2>
+
+          <form onSubmit={handleCoversSubmit}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '1.5rem' }}>
+              {/* Hero Image */}
+              <div className="form-group" style={{ textAlign: 'center' }}>
+                <label className="form-label">خلفية الرئيسية</label>
+                <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+                  <img src={heroPreview} alt="Hero Preview" style={{ width: '100%', height: 160, borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  <button 
+                    type="button"
+                    className="btn-icon" 
+                    style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#1A1333', border: '1px solid #D4A537', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
+                    onClick={() => document.getElementById('heroInput').click()}
+                    title="تغيير صورة الرئيسية"
+                  >
+                    <Pencil size={16} />
+                  </button>
+                </div>
+                <input 
+                  id="heroInput" 
+                  type="file" 
+                  accept="image/*" 
+                  style={{ display: 'none' }} 
+                  onChange={handleHeroChange} 
+                />
+              </div>
+
+              {/* About Image */}
+              <div className="form-group" style={{ textAlign: 'center' }}>
+                <label className="form-label">صورة من نحن</label>
+                <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+                  <img src={aboutPreview} alt="About Preview" style={{ width: '100%', height: 160, borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  <button 
+                    type="button"
+                    className="btn-icon" 
+                    style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#1A1333', border: '1px solid #D4A537', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
+                    onClick={() => document.getElementById('aboutInput').click()}
+                    title="تغيير صورة من نحن"
+                  >
+                    <Pencil size={16} />
+                  </button>
+                </div>
+                <input 
+                  id="aboutInput" 
+                  type="file" 
+                  accept="image/*" 
+                  style={{ display: 'none' }} 
+                  onChange={handleAboutChange} 
+                />
+              </div>
+            </div>
+
+            {msgCovers && (
+              <div style={{
+                padding: '12px 16px', borderRadius: 'var(--radius-sm)', marginBottom: '1rem', fontSize: '0.88rem', fontWeight: 600,
+                background: msgCovers.type === 'success' ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)',
+                color: msgCovers.type === 'success' ? '#10B981' : '#EF4444',
+                border: `1px solid ${msgCovers.type === 'success' ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.2)'}`,
+              }}>
+                {msgCovers.text}
+              </div>
+            )}
+
+            <button type="submit" className="btn btn-primary" disabled={savingCovers || (!heroFile && !aboutFile)} style={{ width: '100%' }}>
+              {savingCovers ? 'جاري الرفع...' : <><Upload size={18} /> تحديث الصور</>}
             </button>
           </form>
         </div>

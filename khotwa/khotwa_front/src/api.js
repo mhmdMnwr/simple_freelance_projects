@@ -90,4 +90,5 @@ export const api = {
   // Settings
   getSettings: () => request('GET', '/admin/settings'),
   updateLogo: (logoUrl) => request('PATCH', '/admin/settings/logo', { logoUrl }),
+  updateCovers: (data) => request('PATCH', '/admin/settings/covers', data),
 };
