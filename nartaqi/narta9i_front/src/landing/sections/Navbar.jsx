@@ -1,0 +1,96 @@
+import { useState, useEffect } from 'react'
+import { publicApi } from '../publicApi'
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [active, setActive] = useState('hero')
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const [logo, setLogo] = useState(null)
+  useEffect(() => {
+    publicApi.getSettings().then(data => {
+      if (data?.logoUrl) setLogo(data.logoUrl)
+    }).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id) }),
+      { rootMargin: '-20% 0px -60% 0px' }
+    )
+    
+    const observeSections = () => {
+      document.querySelectorAll('section[id]').forEach(s => observer.observe(s))
+    }
+    
+    observeSections()
+    
+    const mutation = new MutationObserver(observeSections)
+    mutation.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutation.disconnect()
+    }
+  }, [])
+
+  const links = [
+    { id: 'hero', label: 'الرئيسية' },
+    { id: 'about', label: 'من نحن' },
+    { id: 'testimonials', label: 'آراء التلاميذ' },
+    { id: 'teachers', label: 'الأساتذة' },
+    { id: 'timetable', label: 'البرنامج' },
+    { id: 'announcements', label: 'الإعلانات' },
+  ]
+
+  const close = () => setMobileOpen(false)
+
+  return (
+    <>
+      <nav className={`l-nav ${scrolled ? 'scrolled' : ''}`}>
+        <div className="l-nav-inner">
+          <div className="l-nav-brand">
+            {logo && <img src={logo} alt="بالعلم نرتقي" style={{ height: '40px', width: 'auto', borderRadius: '4px', objectFit: 'contain' }} />}
+            <span>المنصة التعليمية <span className="brand-gold">بالعلم نرتقي</span> أونلاين</span>
+          </div>
+          <div className="l-nav-links">
+            {links.map(l => (
+              <a key={l.id} href={`#${l.id}`} className={active === l.id ? 'active' : ''}>{l.label}</a>
+            ))}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <a href="#register" className="l-nav-cta">سجل الآن</a>
+            <button className="l-hamburger" onClick={() => setMobileOpen(true)}>☰</button>
+          </div>
+        </div>
+      </nav>
+
+      <div className={`l-mobile-overlay ${mobileOpen ? 'open' : ''}`}>
+        <div className="l-mobile-backdrop" onClick={close}></div>
+        <div className="l-mobile-panel">
+          <div className="l-mobile-header">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: '1.1rem' }}>
+              {logo && <img src={logo} alt="بالعلم نرتقي" style={{ height: '36px', width: 'auto', borderRadius: '4px', objectFit: 'contain' }} />}
+              <span>المنصة التعليمية <span style={{ color: 'var(--gold)' }}>بالعلم نرتقي</span> أونلاين</span>
+            </div>
+            <button className="l-mobile-close" onClick={close}>✕</button>
+          </div>
+          <div className="l-mobile-links">
+            {links.map(l => (
+              <a key={l.id} href={`#${l.id}`} onClick={close}>{l.label}</a>
+            ))}
+          </div>
+          <div style={{ marginTop: 'auto', paddingTop: 20 }}>
+            <a href="#register" className="l-btn-gold" onClick={close} style={{ display: 'block', textAlign: 'center' }}>سجل الآن</a>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
