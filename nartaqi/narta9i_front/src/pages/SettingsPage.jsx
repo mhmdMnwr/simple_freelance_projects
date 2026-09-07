@@ -28,14 +28,14 @@ export default function SettingsPage() {
         if (data && data.logoUrl) {
           setLogoPreview(data.logoUrl)
         } else {
-          setLogoPreview('/logo.jpg')
+          setLogoPreview('')
         }
         
         if (data && data.heroBgUrl) setHeroPreview(data.heroBgUrl)
-        else setHeroPreview('/images/hero_bg.png')
+        else setHeroPreview('')
         
         if (data && data.aboutImgUrl) setAboutPreview(data.aboutImgUrl)
-        else setAboutPreview('/images/school.png')
+        else setAboutPreview('')
       })
       .catch(err => console.error('Failed to load settings:', err))
   }, [])
@@ -205,7 +205,13 @@ export default function SettingsPage() {
               <div className="form-group" style={{ textAlign: 'center' }}>
                 <label className="form-label">خلفية الرئيسية</label>
                 <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
-                  <img src={heroPreview} alt="Hero Preview" style={{ width: '100%', height: 160, borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  {heroPreview ? (
+                    <img src={heroPreview} alt="Hero Preview" style={{ width: '100%', height: 160, borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  ) : (
+                    <div style={{ width: '100%', height: 160, borderRadius: '8px', backgroundColor: 'var(--bg-tertiary)', border: '2px dashed var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                      <ImageIcon size={32} />
+                    </div>
+                  )}
                   <button 
                     type="button"
                     className="btn-icon" 
@@ -229,7 +235,13 @@ export default function SettingsPage() {
               <div className="form-group" style={{ textAlign: 'center' }}>
                 <label className="form-label">صورة من نحن</label>
                 <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
-                  <img src={aboutPreview} alt="About Preview" style={{ width: '100%', height: 160, borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  {aboutPreview ? (
+                    <img src={aboutPreview} alt="About Preview" style={{ width: '100%', height: 160, borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  ) : (
+                    <div style={{ width: '100%', height: 160, borderRadius: '8px', backgroundColor: 'var(--bg-tertiary)', border: '2px dashed var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                      <ImageIcon size={32} />
+                    </div>
+                  )}
                   <button 
                     type="button"
                     className="btn-icon" 

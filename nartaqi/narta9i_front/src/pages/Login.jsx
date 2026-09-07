@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import { LogIn } from 'lucide-react'
@@ -8,7 +8,14 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [logo, setLogo] = useState(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    api.getSettings().then(data => {
+      if (data?.logoUrl) setLogo(data.logoUrl)
+    }).catch(() => {})
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -29,9 +36,11 @@ export default function Login() {
     <div className="login-page">
       <form className="login-card" onSubmit={handleSubmit}>
         <div className="login-logo">
-          <div className="login-logo-icon" style={{ padding: 0, overflow: 'hidden', background: '#fff' }}>
-            <img src="/logo.jpg" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
+          {logo && (
+            <div className="login-logo-icon" style={{ padding: 0, overflow: 'hidden', background: '#fff' }}>
+              <img src={logo} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
+          )}
           <h1>المنصة التعليمية بالعلم نرتقي أونلاين</h1>
           <p>لوحة تحكم المدرسة</p>
         </div>
@@ -52,3 +61,4 @@ export default function Login() {
     </div>
   )
 }
+
