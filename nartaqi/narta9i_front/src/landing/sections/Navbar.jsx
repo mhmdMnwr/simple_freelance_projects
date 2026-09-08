@@ -57,7 +57,7 @@ export default function Navbar() {
         <div className="l-nav-inner">
           <div className="l-nav-brand">
             {logo && <img src={logo} alt="بالعلم نرتقي" style={{ height: '40px', width: 'auto', borderRadius: '4px', objectFit: 'contain' }} />}
-            <span>المنصة التعليمية <span className="brand-gold">بالعلم نرتقي</span> أونلاين</span>
+            <span><span className="hide-mobile">المنصة التعليمية </span><span className="brand-gold">بالعلم نرتقي</span><span className="hide-mobile"> أونلاين</span></span>
           </div>
           <div className="l-nav-links">
             {links.map(l => (
@@ -77,7 +77,7 @@ export default function Navbar() {
           <div className="l-mobile-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 800, fontSize: '1.1rem' }}>
               {logo && <img src={logo} alt="بالعلم نرتقي" style={{ height: '36px', width: 'auto', borderRadius: '4px', objectFit: 'contain' }} />}
-              <span>المنصة التعليمية <span style={{ color: 'var(--gold)' }}>بالعلم نرتقي</span> أونلاين</span>
+              <span><span className="hide-mobile">المنصة التعليمية </span><span style={{ color: 'var(--gold)' }}>بالعلم نرتقي</span><span className="hide-mobile"> أونلاين</span></span>
             </div>
             <button className="l-mobile-close" onClick={close}>✕</button>
           </div>

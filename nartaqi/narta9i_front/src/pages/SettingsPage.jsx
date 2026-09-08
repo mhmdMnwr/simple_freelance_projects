@@ -160,7 +160,7 @@ export default function SettingsPage() {
                 <button 
                   type="button"
                   className="btn-icon" 
-                  style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#1A1333', border: '1px solid #D4A537', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
+                  style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#0F172A', border: '1px solid #1E40AF', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
                   onClick={() => document.getElementById('logoInput').click()}
                   title="تغيير الشعار"
                 >
@@ -215,7 +215,7 @@ export default function SettingsPage() {
                   <button 
                     type="button"
                     className="btn-icon" 
-                    style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#1A1333', border: '1px solid #D4A537', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
+                    style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#0F172A', border: '1px solid #1E40AF', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
                     onClick={() => document.getElementById('heroInput').click()}
                     title="تغيير صورة الرئيسية"
                   >
@@ -245,7 +245,7 @@ export default function SettingsPage() {
                   <button 
                     type="button"
                     className="btn-icon" 
-                    style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#1A1333', border: '1px solid #D4A537', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
+                    style={{ position: 'absolute', bottom: -10, right: -10, backgroundColor: '#ffffff', color: '#0F172A', border: '1px solid #1E40AF', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: 10 }}
                     onClick={() => document.getElementById('aboutInput').click()}
                     title="تغيير صورة من نحن"
                   >

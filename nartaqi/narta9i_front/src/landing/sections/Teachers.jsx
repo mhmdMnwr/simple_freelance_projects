@@ -138,8 +138,8 @@ export default function Teachers() {
                         ) : (
                           <div className="l-teacher-img-placeholder" style={{ height: '100%' }}>
                             <svg width="120" height="120" viewBox="0 0 80 80" fill="none">
-                              <circle cx="40" cy="30" r="16" fill="rgba(99,102,241,0.25)" />
-                              <ellipse cx="40" cy="68" rx="26" ry="16" fill="rgba(99,102,241,0.15)" />
+                              <circle cx="40" cy="30" r="16" fill="rgba(212,160,23,0.25)" />
+                              <ellipse cx="40" cy="68" rx="26" ry="16" fill="rgba(212,160,23,0.15)" />
                             </svg>
                           </div>
                         )}

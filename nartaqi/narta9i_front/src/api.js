@@ -17,7 +17,10 @@ async function request(method, path, body) {
 
   if (res.status === 401) {
     localStorage.removeItem('khotwa_token');
-    window.location.href = '/admin/login';
+    // Only redirect if we're not already on the login page to prevent infinite loop
+    if (!window.location.pathname.startsWith('/admin/login')) {
+      window.location.href = '/admin/login';
+    }
     throw new Error('غير مصرح');
   }
 

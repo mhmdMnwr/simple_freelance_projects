@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
+import { publicApi } from '../landing/publicApi'
 import { LogIn } from 'lucide-react'
 
 export default function Login() {
@@ -12,7 +13,7 @@ export default function Login() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    api.getSettings().then(data => {
+    publicApi.getSettings().then(data => {
       if (data?.logoUrl) setLogo(data.logoUrl)
     }).catch(() => {})
   }, [])

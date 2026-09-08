@@ -48,10 +48,15 @@ export default function Registration() {
       setMsg({ type: 'error', text: 'يرجى ملء جميع الحقول المطلوبة' })
       return
     }
+    const cleanPhone = form.phone.replace(/\s/g, '')
+    if (!/^\d{10}$/.test(cleanPhone)) {
+      setMsg({ type: 'error', text: 'رقم الهاتف يجب أن يتكون من 10 أرقام' })
+      return
+    }
     setSaving(true); setMsg(null)
     try {
       const { classId, ...rest } = form
-      await publicApi.registerStudent({ ...rest, age: Number(rest.age) })
+      await publicApi.registerStudent({ ...rest, phone: cleanPhone, age: Number(rest.age) })
       setMsg({ type: 'success', text: 'تم التسجيل بنجاح! سنتواصل معك قريباً ✅' })
       setForm({ firstName: '', lastName: '', age: '', sex: 'Male', phone: '', mainLevelId: '', classId: '', subjectIds: [] })
     } catch (err) {
